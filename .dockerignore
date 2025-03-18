@@ -1,0 +1,14 @@
+node_modules
+coverage
+
+.git
+.gitignore
+
+.env
+.env.development
+
+.dockerignore
+Dockerfile
+Dockerfile.dev
+
+README.md
