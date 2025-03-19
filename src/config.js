@@ -6,8 +6,6 @@ class Config {
     this.PORT = process.env.PORT || 8000;
     this.API_VERSION = process.env.API_VERSION || 'v1';
     this.JWT_TOKEN = process.env.JWT_TOKEN || '';
-    this.GATEWAY_JWT_TOKEN = process.env.GATEWAY_JWT_TOKEN || '';
-    this.SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
     this.CLIENT_URL = process.env.CLIENT_URL || '';
     this.API_GATEWAY_URL = process.env.AUTH_BASE_URL || '';
     this.RABBITMQ_ENDPOINT = process.env.RABBITMQ_ENDPOINT || '';
