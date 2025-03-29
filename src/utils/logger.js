@@ -1,19 +1,19 @@
-import axios from 'axios';
-import config from '@/config.js';
+// import axios from 'axios';
+// import config from '@/config.js';
 
 class LoggerService {
   async log(level, message, ...metadata) {
-    const lokiLogEntry = {
-      streams: [
-        {
-          stream: {
-            level,
-            service_name: 'auth',
-          },
-          values: [[`${Date.now() * 1000000} ${message}`, metadata]],
-        },
-      ],
-    };
+    // const lokiLogEntry = {
+    //   streams: [
+    //     {
+    //       stream: {
+    //         level,
+    //         service_name: 'auth',
+    //       },
+    //       values: [[`${Date.now() * 1000000} ${message}`, metadata]],
+    //     },
+    //   ],
+    // };
 
     try {
       // await axios.post(`${config.LOKI_HOST}`, lokiLogEntry);
