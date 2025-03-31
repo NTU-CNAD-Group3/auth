@@ -5,11 +5,11 @@ import config from '@/config.js';
 import { createAuthUser, getUserByUsernameOrEmail, signToken } from '@/services/auth.service.js';
 import { publishDirectMessage } from '@/queues/producer.js';
 
-export async function signup(req, res, next) {
+export async function signup(req, res) {
   const { username, email, password } = req.body;
   const checkIfUserExist = await getUserByUsernameOrEmail(username, email);
   if (checkIfUserExist) {
-    return next(new Error('Invalid credentials. Email or Username already exists'));
+    throw new Error('Invalid credentials. Email or Username already exists');
   }
 
   const randomBytes = await Promise.resolve(crypto.randomBytes(20));

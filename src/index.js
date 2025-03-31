@@ -33,14 +33,9 @@ app.use(helmet());
 app.use((req, res, next) => {
   res.on('finish', () => {
     const route = req.route ? req.route.path : '';
-    const errorMessage = req.errorMessage ? req.errorMessage : 'Internal Server Error';
     if (res.statusCode < 400) {
       logger.info({
         message: `msg=Received response method=${req.method} path=${route} ip=${req.ip} status=${res.statusCode} url=${req.originalUrl}`,
-      });
-    } else {
-      logger.error({
-        message: `msg=Received response method=${req.method} path=${route} ip=${req.ip} status=${res.statusCode} url=${req.originalUrl} error=${errorMessage}`,
       });
     }
   });
@@ -52,18 +47,24 @@ app.use(`/api`, routes);
 // route not found
 app.use('*', (req, res, next) => {
   const err = new Error(`Not Found - ${req.method} ${req.originalUrl}`);
-  err.statusCode = 404;
+  err.status = 404;
   next(err);
 });
 
 // error handler
 app.use((err, req, res, next) => {
-  if (err) {
-    req.errorMessage = err.message;
-    res.status(err.statusCode || 500).json({
-      message: err.message,
-    });
-  }
+  const errResponse = err?.response?.data?.message || err?.message || 'Internal Server Error';
+  const errStatusCode = err?.response?.status || err?.status || 500;
+  const errStack = (err?.response?.data?.stack || err?.stack || 'No stack available').replace(/\n/g, ' ');;
+
+  res.status(errStatusCode);
+  res.json({
+    message: errResponse,
+    ...(process.env.NODE_ENV === 'development' && { stack: errStack })
+  });
+  logger.error({
+    message: `msg=Error occurred method=${req.method} path=${req.path} ip=${req.ip} status=${errStatusCode} url=${req.originalUrl} error=${errResponse} stack=${errStack}`,
+  });
 });
 
 app.listen(config.PORT, async () => {

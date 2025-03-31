@@ -1,11 +1,11 @@
 import { getUserByVerificationToken, updateRoleAndVerifyEmailField } from '@/services/auth.service.js';
 
-export async function verifyEmail(req, res, next) {
+export async function verifyEmail(req, res) {
   const { token } = req.body;
 
   const checkIfUserExist = await getUserByVerificationToken(token);
   if (!checkIfUserExist) {
-    return next(new Error('Verification token is either invalid or is already used.'));
+    throw new Error('Verification token is either invalid or is already used.');
   }
 
   const user = await updateRoleAndVerifyEmailField(checkIfUserExist.id, 'verified_user', '');
