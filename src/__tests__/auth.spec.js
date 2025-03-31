@@ -11,7 +11,6 @@ const { getUserByVerificationToken, updateRoleAndVerifyEmailField } = await impo
 describe('verifyEmail', () => {
   let req;
   let res;
-  let next;
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -25,7 +24,6 @@ describe('verifyEmail', () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
-    next = jest.fn();
   });
 
   afterEach(() => {
@@ -37,7 +35,7 @@ describe('verifyEmail', () => {
     getUserByVerificationToken.mockResolvedValue(user);
     updateRoleAndVerifyEmailField.mockResolvedValue(user);
 
-    await verifyEmail(req, res, next);
+    await verifyEmail(req, res);
 
     expect(getUserByVerificationToken).toHaveBeenCalledWith('valid-token');
     expect(updateRoleAndVerifyEmailField).toHaveBeenCalledWith('1', 'verified_user', '');
@@ -51,12 +49,10 @@ describe('verifyEmail', () => {
   test('should throw an error if verification token is invalid', async () => {
     getUserByVerificationToken.mockResolvedValue(null);
 
-    await verifyEmail(req, res, next);
-
+    await expect(verifyEmail(req, res)).rejects.toThrow('Verification token is either invalid or is already used.');
     expect(getUserByVerificationToken).toHaveBeenCalledWith('valid-token');
     expect(updateRoleAndVerifyEmailField).not.toHaveBeenCalled();
     expect(res.status).not.toHaveBeenCalled();
     expect(res.json).not.toHaveBeenCalled();
-    expect(next).toHaveBeenCalledWith(new Error('Verification token is either invalid or is already used.'));
   });
 });
