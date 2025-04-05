@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-import { pool } from '@/models/db.js';
-import config from '@/config.js';
+import { pool } from '#src/models/db.js';
+import config from '#src/config.js';
 
 export async function createAuthUser(data) {
   try {

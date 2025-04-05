@@ -6,10 +6,10 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 
-import config from '@/config.js';
-import { databaseConnection } from '@/models/db.js';
-import logger from '@/utils/logger.js';
-import routes from '@/routes/index.js';
+import config from '#src/config.js';
+import { databaseConnection } from '#src/models/db.js';
+import logger from '#src/utils/logger.js';
+import routes from '#src/routes/index.js';
 
 const app = express();
 
@@ -55,12 +55,12 @@ app.use('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   const errResponse = err?.response?.data?.message || err?.message || 'Internal Server Error';
   const errStatusCode = err?.response?.status || err?.status || 500;
-  const errStack = (err?.response?.data?.stack || err?.stack || 'No stack available').replace(/\n/g, ' ');;
+  const errStack = (err?.response?.data?.stack || err?.stack || 'No stack available').replace(/\n/g, ' ');
 
   res.status(errStatusCode);
   res.json({
     message: errResponse,
-    ...(process.env.NODE_ENV === 'development' && { stack: errStack })
+    ...(process.env.NODE_ENV === 'development' && { stack: errStack }),
   });
   logger.error({
     message: `msg=Error occurred method=${req.method} path=${req.path} ip=${req.ip} status=${errStatusCode} url=${req.originalUrl} error=${errResponse} stack=${errStack}`,

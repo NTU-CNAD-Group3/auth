@@ -1,7 +1,7 @@
 import amqplib from 'amqplib';
 
-import config from '@/config.js';
-import logger from '@/utils/logger.js';
+import config from '#src/config.js';
+import logger from '#src/utils/logger.js';
 
 let connection;
 

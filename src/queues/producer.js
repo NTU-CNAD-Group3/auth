@@ -1,5 +1,5 @@
-import { createConnection } from '@/queues/connect.js';
-import logger from '@/utils/logger.js';
+import { createConnection } from '#src/queues/connect.js';
+import logger from '#src/utils/logger.js';
 
 export async function publishDirectMessage(exchangeName, routingKey, message) {
   try {

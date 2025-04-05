@@ -1,9 +1,9 @@
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
-import config from '@/config.js';
-import { createAuthUser, getUserByUsernameOrEmail, signToken } from '@/services/auth.service.js';
-import { publishDirectMessage } from '@/queues/producer.js';
+import config from '#src/config.js';
+import { createAuthUser, getUserByUsernameOrEmail, signToken } from '#src/services/auth.service.js';
+import { publishDirectMessage } from '#src/queues/producer.js';
 
 export async function signup(req, res) {
   const { username, email, password } = req.body;

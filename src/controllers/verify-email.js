@@ -1,4 +1,4 @@
-import { getUserByVerificationToken, updateRoleAndVerifyEmailField } from '@/services/auth.service.js';
+import { getUserByVerificationToken, updateRoleAndVerifyEmailField } from '#src/services/auth.service.js';
 
 export async function verifyEmail(req, res) {
   const { token } = req.body;

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-import { getUserByEmail, signToken } from '@/services/auth.service.js';
+import { getUserByEmail, signToken } from '#src/services/auth.service.js';
 
 export async function signin(req, res) {
   const { email, password } = req.body;

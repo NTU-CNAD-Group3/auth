@@ -1,8 +1,8 @@
 import express from 'express';
 
-import { signin } from '@/controllers/signin.js';
-import { signup } from '@/controllers/signup.js';
-import { verifyEmail } from '@/controllers/verify-email.js';
+import { signin } from '#src/controllers/signin.js';
+import { signup } from '#src/controllers/signup.js';
+import { verifyEmail } from '#src/controllers/verify-email.js';
 
 const router = express.Router();
 

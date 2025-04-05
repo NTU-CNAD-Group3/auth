@@ -1,7 +1,7 @@
 import express from 'express';
 
-import authRoutes from '@/routes/auth.route.js';
-import config from '@/config.js';
+import authRoutes from '#src/routes/auth.route.js';
+import config from '#src/config.js';
 
 const router = express.Router();
 const BASE_PATH = `/${config.API_VERSION}/auth`;

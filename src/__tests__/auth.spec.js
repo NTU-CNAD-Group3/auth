@@ -1,12 +1,12 @@
 import { jest } from '@jest/globals';
 
-jest.unstable_mockModule('@/services/auth.service.js', () => ({
+jest.unstable_mockModule('#src/services/auth.service.js', () => ({
   getUserByVerificationToken: jest.fn(),
   updateRoleAndVerifyEmailField: jest.fn(),
 }));
 
-const { verifyEmail } = await import('@/controllers/verify-email.js');
-const { getUserByVerificationToken, updateRoleAndVerifyEmailField } = await import('@/services/auth.service.js');
+const { verifyEmail } = await import('#src/controllers/verify-email.js');
+const { getUserByVerificationToken, updateRoleAndVerifyEmailField } = await import('#src/services/auth.service.js');
 
 describe('verifyEmail', () => {
   let req;
@@ -31,7 +31,7 @@ describe('verifyEmail', () => {
   });
 
   test('should verify email and return updated user', async () => {
-    const user = { id: '1', email: '123@gmail.com', username: 'user', provider: 'local', role: 'user' };
+    const user = { id: '1', email: '123#srcgmail.com', username: 'user', provider: 'local', role: 'user' };
     getUserByVerificationToken.mockResolvedValue(user);
     updateRoleAndVerifyEmailField.mockResolvedValue(user);
 
