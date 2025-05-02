@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -20,3 +20,11 @@ jobs:
   sonarqube:
     uses: NTU-CNAD-Group3/cicd-workflows/.github/workflows/sonarqube-ci.yaml@main
     secrets: inherit
+
+  deploy:
+    if: github.event_name == 'push'
+    uses: NTU-CNAD-Group3/cicd-workflows/.github/workflows/service-cd.yaml@main
+    with:
+      service: gateway
+    secrets: inherit
+
